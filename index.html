@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1b1b1e">
-<title>Bl4ckM00n</title>
+<title>BlckM00n</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -64,10 +64,7 @@
     z-index: 100;
     transition: background .3s, transform .3s;
   }
-  #sidebar .profile {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
+  #sidebar .profile { text-align: center; margin-bottom: 2rem; }
   #sidebar .avatar {
     width: 96px; height: 96px;
     border-radius: 50%;
@@ -76,11 +73,7 @@
     margin-bottom: 1rem;
     background: var(--bg-hover);
   }
-  #sidebar .site-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
-  }
+  #sidebar .site-title { font-size: 1.25rem; font-weight: 700; color: var(--text); }
   #sidebar .site-subtitle {
     font-size: .78rem;
     color: var(--text-dim);
@@ -99,6 +92,7 @@
     font-weight: 500;
     transition: all .2s;
     margin-bottom: 2px;
+    cursor: pointer;
   }
   #sidebar nav a:hover,
   #sidebar nav a.active {
@@ -123,18 +117,11 @@
     transition: all .2s;
     font-size: 1rem;
   }
-  #sidebar .social a:hover {
-    background: var(--bg-hover);
-    color: var(--accent);
-  }
+  #sidebar .social a:hover { background: var(--bg-hover); color: var(--accent); }
   #mode-toggle {
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    font-size: 1.1rem;
-    cursor: pointer;
-    padding: .4rem;
-    border-radius: 8px;
+    background: none; border: none;
+    color: var(--text-dim); font-size: 1.1rem;
+    cursor: pointer; padding: .4rem; border-radius: 8px;
     transition: all .2s;
   }
   #mode-toggle:hover { background: var(--bg-hover); color: var(--accent); }
@@ -161,13 +148,8 @@
   }
   #topbar .site-title-sm { font-weight: 700; font-size: 1.1rem; }
   #topbar button {
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: .4rem;
-    border-radius: 8px;
+    background: none; border: none; color: var(--text-dim);
+    font-size: 1.2rem; cursor: pointer; padding: .4rem; border-radius: 8px;
   }
   #topbar button:hover { background: var(--bg-hover); color: var(--accent); }
 
@@ -206,6 +188,18 @@
     border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
   }
 
+  /* SECTION */
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+  }
+  .section-title i { margin-right: .5rem; color: var(--accent); }
+
   /* POST CARDS */
   #post-list {
     display: flex;
@@ -235,9 +229,7 @@
     margin-bottom: .5rem;
   }
   .card .meta i { margin-right: 4px; }
-  .card .meta .cats {
-    color: var(--accent);
-  }
+  .card .meta .cats { color: var(--accent); }
   .card h2 {
     font-size: 1.15rem;
     font-weight: 700;
@@ -254,71 +246,105 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .card .preview-img {
-    margin: 1rem 0 0;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .card .preview-img img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
+  .card .lang {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .72rem;
+    padding: .15rem .6rem;
+    border-radius: 6px;
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    margin-top: .75rem;
+    border: 1px solid var(--border);
   }
 
-  /* SIDEBAR RIGHT */
-  .layout {
-    display: flex;
-    gap: 2.5rem;
+  /* CATEGORIES / TAGS GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
   }
-  .layout main { flex: 1; min-width: 0; }
-  .layout aside {
-    width: 260px;
-    flex-shrink: 0;
-  }
-  .panel {
+  .grid-item {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 1.25rem;
-    margin-bottom: 1.5rem;
+    text-align: center;
+    transition: all .25s;
   }
-  .panel h3 {
-    font-size: .85rem;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    font-weight: 600;
+  .grid-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
   }
-  .panel ul { list-style: none; }
-  .panel li {
-    font-size: .88rem;
-    padding: .35rem 0;
-    border-bottom: 1px solid var(--border);
+  .grid-item i {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: .5rem;
   }
-  .panel li:last-child { border-bottom: none; }
-  .panel li a { color: var(--text-dim); display: block; }
-  .panel li a:hover { color: var(--text); }
-  .tag-cloud {
+  .grid-item h4 { font-size: .95rem; font-weight: 600; margin-bottom: .25rem; }
+  .grid-item p { font-size: .8rem; color: var(--text-muted); }
+  .grid-item .count {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--accent);
+    margin-top: .5rem;
+    display: block;
+  }
+
+  .tag-list {
     display: flex;
     flex-wrap: wrap;
-    gap: .4rem;
+    gap: .6rem;
   }
-  .tag-cloud a {
+  .tag-list a {
     font-family: var(--mono);
-    font-size: .72rem;
-    padding: .2rem .7rem;
+    font-size: .82rem;
+    padding: .35rem 1rem;
     border-radius: 20px;
-    background: var(--bg-hover);
+    background: var(--bg-card);
     color: var(--text-dim);
     border: 1px solid var(--border);
     transition: all .2s;
   }
-  .tag-cloud a:hover {
+  .tag-list a:hover {
     background: color-mix(in srgb, var(--accent) 15%, transparent);
     border-color: var(--accent);
     color: var(--accent);
+  }
+
+  /* ABOUT */
+  .about-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    line-height: 1.8;
+  }
+  .about-content p { margin-bottom: 1rem; color: var(--text-dim); }
+  .about-content .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 1rem 0;
+  }
+  .about-content .skills span {
+    font-family: var(--mono);
+    font-size: .78rem;
+    padding: .3rem .8rem;
+    border-radius: 8px;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .about-content .disclaimer {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    font-size: .85rem;
+    color: var(--text-dim);
+    text-align: center;
   }
 
   /* FOOTER */
@@ -335,14 +361,8 @@
   footer a { color: var(--text-dim); }
   footer a:hover { color: var(--accent); }
 
-  /* HAMBURGER OVERLAY */
-  #sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.5);
-    z-index: 99;
-  }
+  /* OVERLAY */
+  #sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 99; }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -351,7 +371,6 @@
     #sidebar-overlay.active { display: block; }
     #main { margin-left: 0; padding: 1.5rem; }
     #topbar { display: flex; }
-    .layout aside { display: none; }
   }
 </style>
 </head>
@@ -364,18 +383,18 @@
   <div class="profile">
     <img src="https://avatars.githubusercontent.com/u/288152946?v=4" alt="avatar" class="avatar">
     <div class="site-title">BlckM00n</div>
-    <div class="site-subtitle">🔐 Cybersecurity Enthusiast · 🎯 CTF Player<br>💻 Estudiante de Ingeniería en Conectividad y Redes · 🐧 Arch Linux</div>
+    <div class="site-subtitle">🔐 Cybersecurity Enthusiast · 🎯 CTF Player<br>💻 Estudiante de Ing. en Conectividad y Redes · 🐧 Arch Linux</div>
   </div>
   <nav>
-    <a href="/" class="active"><i class="fas fa-home"></i> HOME</a>
-    <a href="/categories/"><i class="fas fa-stream"></i> CATEGORIES</a>
-    <a href="/tags/"><i class="fas fa-tags"></i> TAGS</a>
-    <a href="/archives/"><i class="fas fa-archive"></i> ARCHIVES</a>
-    <a href="/about/"><i class="fas fa-info-circle"></i> ABOUT</a>
+    <a class="active" data-section="home"><i class="fas fa-home"></i> HOME</a>
+    <a data-section="categories"><i class="fas fa-stream"></i> CATEGORIES</a>
+    <a data-section="tags"><i class="fas fa-tags"></i> TAGS</a>
+    <a data-section="archives"><i class="fas fa-archive"></i> ARCHIVES</a>
+    <a data-section="about"><i class="fas fa-info-circle"></i> ABOUT</a>
   </nav>
   <div class="social">
     <button id="mode-toggle" aria-label="Modo oscuro/claro"><i class="fas fa-moon"></i></button>
-    <span class="icon-border" style="width:1px;background:var(--border);margin:0 4px;"></span>
+    <span style="width:1px;background:var(--border);margin:0 4px;"></span>
     <a href="https://github.com/BlckM00n" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
     <a href="https://twitter.com/BlckM00n" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
     <a href="mailto:blckm00n@proton.me" aria-label="Email"><i class="fas fa-envelope"></i></a>
@@ -386,104 +405,225 @@
 <!-- TOPBAR (mobile) -->
 <div id="topbar">
   <button id="sidebar-trigger" aria-label="Menú"><i class="fas fa-bars"></i></button>
-  <span class="site-title-sm">Bl4ckM00n</span>
+  <span class="site-title-sm">BlckM00n</span>
   <button id="search-trigger-mobile" aria-label="Buscar"><i class="fas fa-search"></i></button>
 </div>
 
 <!-- MAIN -->
 <div id="main">
-  <div class="hero">
-    <h1>BlckM00n</h1>
-    <p>Estudiante de Ingeniería en Conectividad y Redes en Chile. Apasionado por la ciberseguridad ofensiva, pentesting y desafíos CTF. Documentando mi aprendizaje en writeups y laboratorios prácticos.</p>
-    <div class="tags">
-      <span>#Pentesting</span>
-      <span>#CTF</span>
-      <span>#RedTeam</span>
-      <span>#DockerLabs</span>
-      <span>#HackTheBox</span>
-      <span>#Linux</span>
-      <span>#Arch</span>
+
+  <!-- HOME -->
+  <section id="section-home" class="section active">
+    <div class="hero">
+      <h1>BlckM00n</h1>
+      <p>Estudiante de Ingeniería en Conectividad y Redes en Chile. Apasionado por la ciberseguridad ofensiva, pentesting y desafíos CTF. Documentando mi aprendizaje en writeups y laboratorios prácticos.</p>
+      <div class="tags">
+        <span>#Pentesting</span>
+        <span>#CTF</span>
+        <span>#RedTeam</span>
+        <span>#DockerLabs</span>
+        <span>#HackTheBox</span>
+        <span>#Linux</span>
+        <span>#Arch</span>
+      </div>
     </div>
-  </div>
 
-  <div class="layout">
-    <main>
-      <div id="post-list">
-
-        <article class="card">
-          <div class="meta">
-            <span><i class="far fa-calendar"></i> Jun 18, 2026</span>
-            <span class="cats"><i class="far fa-folder-open"></i> DockerLabs, Pentesting</span>
-          </div>
-          <h2><a href="https://github.com/BlckM00n/DockerLabs">🐳 DockerLabs — Writeups</a></h2>
-          <p>Repositorio de writeups y notas de máquinas de DockerLabs enfocado en pentesting práctico. Incluye procesos de enumeración, explotación y escalada de privilegios documentados paso a paso.</p>
-        </article>
-
-        <article class="card">
-          <div class="meta">
-            <span><i class="far fa-calendar"></i> Jun 18, 2026</span>
-            <span class="cats"><i class="far fa-folder-open"></i> CTF, Challenges</span>
-          </div>
-          <h2><a href="https://github.com/BlckM00n/Challenge-CTFs">🚩 Challenge-CTFs</a></h2>
-          <p>Repositorio de desafíos CTF resueltos y documentados, enfocado en la práctica de ciberseguridad en distintas áreas como web, criptografía, forense, reverse engineering y privilege escalation.</p>
-        </article>
-
-        <article class="card">
-          <div class="meta">
-            <span><i class="far fa-calendar"></i> Jun 15, 2026</span>
-            <span class="cats"><i class="far fa-folder-open"></i> HackTheBox, RedTeam</span>
-          </div>
-          <h2><a href="https://github.com/BlckM00n/HackTheBox">🎯 HackTheBox — Máquinas</a></h2>
-          <p>Documentación de máquinas y laboratorios de HackTheBox resueltos, con técnicas de enumeración, explotación y escalada de privilegios.</p>
-        </article>
-
-        <article class="card">
-          <div class="meta">
-            <span><i class="far fa-calendar"></i> Jun 10, 2026</span>
-            <span class="cats"><i class="far fa-folder-open"></i> Writeups, General</span>
-          </div>
-          <h2><a href="https://github.com/BlckM00n/BlckM00n">📝 Perfil README</a></h2>
-          <p>Mi perfil de GitHub con la presentación personal, repositorios destacados y disclaimer sobre contenido educativo.</p>
-        </article>
-
-      </div>
-
-      <div class="card" style="margin-top:1rem;text-align:center;padding:1rem;background:color-mix(in srgb, var(--accent) 6%, transparent);border-color:color-mix(in srgb, var(--accent) 20%, transparent);">
-        <p style="font-size:.85rem;color:var(--text-dim);margin:0;">
-          ⚠️ Todo el contenido publicado tiene fines educativos y de práctica en entornos controlados.
-        </p>
-      </div>
-    </main>
-
-    <aside>
-      <div class="panel">
-        <h3>RECENTLY UPDATED</h3>
-        <ul>
-          <li><a href="https://github.com/BlckM00n/DockerLabs">DockerLabs Writeups</a></li>
-          <li><a href="https://github.com/BlckM00n/Challenge-CTFs">Challenge CTFs</a></li>
-          <li><a href="https://github.com/BlckM00n/HackTheBox">HackTheBox</a></li>
-          <li><a href="https://github.com/BlckM00n">Perfil README</a></li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h3>TRENDING TAGS</h3>
-        <div class="tag-cloud">
-          <a href="#">Pentesting</a>
-          <a href="#">CTF</a>
-          <a href="#">DockerLabs</a>
-          <a href="#">HackTheBox</a>
-          <a href="#">RedTeam</a>
-          <a href="#">Web</a>
-          <a href="#">Crypto</a>
-          <a href="#">Forense</a>
-          <a href="#">Reversing</a>
-          <a href="#">Linux</a>
-          <a href="#">Arch</a>
-          <a href="#">Redes</a>
+    <div id="post-list">
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 18, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> DockerLabs, Pentesting</span>
         </div>
+        <h2><a href="https://github.com/BlckM00n/DockerLabs">🐳 DockerLabs — Writeups</a></h2>
+        <p>Repositorio de writeups y notas de máquinas de DockerLabs enfocado en pentesting práctico. Incluye procesos de enumeración, explotación y escalada de privilegios documentados paso a paso.</p>
+        <span class="lang">Python</span>
+      </article>
+
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 18, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> CTF, Challenges</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/Challenge-CTFs">🚩 Challenge-CTFs</a></h2>
+        <p>Repositorio de desafíos CTF resueltos y documentados, enfocado en la práctica de ciberseguridad en distintas áreas como web, criptografía, forense, reverse engineering y privilege escalation.</p>
+        <span class="lang">Python</span>
+      </article>
+
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 15, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> HackTheBox, RedTeam</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/HackTheBox">🎯 HackTheBox — Máquinas</a></h2>
+        <p>Documentación de máquinas y laboratorios de HackTheBox resueltos, con técnicas de enumeración, explotación y escalada de privilegios.</p>
+        <span class="lang">Markdown</span>
+      </article>
+
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 10, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> Writeups, General</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/BlckM00n">📝 Perfil README</a></h2>
+        <p>Mi perfil de GitHub con la presentación personal, repositorios destacados y disclaimer sobre contenido educativo.</p>
+        <span class="lang">Markdown</span>
+      </article>
+    </div>
+
+    <div class="card" style="margin-top:1rem;text-align:center;padding:1rem;background:color-mix(in srgb, var(--accent) 6%, transparent);border-color:color-mix(in srgb, var(--accent) 20%, transparent);">
+      <p style="font-size:.85rem;color:var(--text-dim);margin:0;">
+        ⚠️ Todo el contenido publicado tiene fines educativos y de práctica en entornos controlados.
+      </p>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="section-categories" class="section">
+    <h2 class="section-title"><i class="fas fa-stream"></i> CATEGORIES</h2>
+    <div class="grid">
+      <div class="grid-item">
+        <i class="fas fa-shield-halved"></i>
+        <h4>Pentesting</h4>
+        <p>Writeups y técnicas de penetración</p>
+        <span class="count">15 posts</span>
       </div>
-    </aside>
-  </div>
+      <div class="grid-item">
+        <i class="fas fa-flag"></i>
+        <h4>CTF</h4>
+        <p>Desafíos de capture the flag</p>
+        <span class="count">12 posts</span>
+      </div>
+      <div class="grid-item">
+        <i class="fab fa-docker"></i>
+        <h4>DockerLabs</h4>
+        <p>Máquinas Docker resueltas</p>
+        <span class="count">8 posts</span>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-skull"></i>
+        <h4>HackTheBox</h4>
+        <p>Máquinas HTB documentadas</p>
+        <span class="count">6 posts</span>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-code"></i>
+        <h4>Web</h4>
+        <p>Ataques y vulnerabilidades web</p>
+        <span class="count">5 posts</span>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-lock"></i>
+        <h4>Criptografía</h4>
+        <p>Desafíos de crypto</p>
+        <span class="count">4 posts</span>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-microscope"></i>
+        <h4>Forense</h4>
+        <p>Análisis forense digital</p>
+        <span class="count">3 posts</span>
+      </div>
+      <div class="grid-item">
+        <i class="fas fa-rotate-left"></i>
+        <h4>Reversing</h4>
+        <p>Ingeniería inversa</p>
+        <span class="count">3 posts</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAGS -->
+  <section id="section-tags" class="section">
+    <h2 class="section-title"><i class="fas fa-tags"></i> TAGS</h2>
+    <div class="tag-list">
+      <a href="#">Pentesting <small>(15)</small></a>
+      <a href="#">CTF <small>(12)</small></a>
+      <a href="#">DockerLabs <small>(8)</small></a>
+      <a href="#">HackTheBox <small>(6)</small></a>
+      <a href="#">RedTeam <small>(6)</small></a>
+      <a href="#">Web <small>(5)</small></a>
+      <a href="#">Crypto <small>(4)</small></a>
+      <a href="#">Forense <small>(3)</small></a>
+      <a href="#">Reversing <small>(3)</small></a>
+      <a href="#">Linux <small>(4)</small></a>
+      <a href="#">Arch <small>(2)</small></a>
+      <a href="#">Redes <small>(2)</small></a>
+      <a href="#">PrivEsc <small>(4)</small></a>
+      <a href="#">Enumeración <small>(5)</small></a>
+    </div>
+  </section>
+
+  <!-- ARCHIVES -->
+  <section id="section-archives" class="section">
+    <h2 class="section-title"><i class="fas fa-archive"></i> ARCHIVES</h2>
+    <div id="post-list">
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 18, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> DockerLabs</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/DockerLabs">🐳 DockerLabs — Writeups</a></h2>
+      </article>
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 18, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> CTF</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/Challenge-CTFs">🚩 Challenge-CTFs</a></h2>
+      </article>
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 15, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> HackTheBox</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/HackTheBox">🎯 HackTheBox — Máquinas</a></h2>
+      </article>
+      <article class="card">
+        <div class="meta">
+          <span><i class="far fa-calendar"></i> Jun 10, 2026</span>
+          <span class="cats"><i class="far fa-folder-open"></i> Perfil</span>
+        </div>
+        <h2><a href="https://github.com/BlckM00n/BlckM00n">📝 Perfil README</a></h2>
+      </article>
+    </div>
+    <div style="margin-top:1rem;text-align:center;color:var(--text-muted);font-size:.9rem;">
+      <i class="far fa-calendar"></i> Mostrando 4 de 4 proyectos
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="section-about" class="section">
+    <h2 class="section-title"><i class="fas fa-info-circle"></i> ABOUT</h2>
+    <div class="about-content">
+      <p>¡Hola! Soy <strong>BlackMoon (BlckM00n)</strong>, estudiante de <strong>Ingeniería en Conectividad y Redes</strong> en Chile. Apasionado por la ciberseguridad, el pentesting y los desafíos CTF.</p>
+
+      <p>Me encuentro en constante aprendizaje en áreas como redes, sistemas Linux y seguridad informática, con enfoque en práctica mediante laboratorios y plataformas CTF.</p>
+
+      <h4 style="margin-top:1.5rem;margin-bottom:.5rem;">🎯 Intereses</h4>
+      <div class="skills">
+        <span>Pentesting</span>
+        <span>CTF</span>
+        <span>Red Team</span>
+        <span>Linux</span>
+        <span>Redes</span>
+        <span>Bash</span>
+        <span>Python</span>
+        <span>Docker</span>
+        <span>Arch Linux</span>
+      </div>
+
+      <h4 style="margin-top:1.5rem;margin-bottom:.5rem;">📚 Repositorios</h4>
+      <ul style="color:var(--text-dim);padding-left:1.25rem;">
+        <li><a href="https://github.com/BlckM00n/DockerLabs">DockerLabs</a> — Writeups de máquinas Docker</li>
+        <li><a href="https://github.com/BlckM00n/Challenge-CTFs">Challenge-CTFs</a> — Desafíos CTF resueltos</li>
+        <li><a href="https://github.com/BlckM00n/HackTheBox">HackTheBox</a> — Máquinas HTB documentadas</li>
+      </ul>
+
+      <div class="disclaimer">
+        ⚠️ Todo el contenido publicado tiene fines educativos y de práctica en entornos controlados.
+      </div>
+    </div>
+  </section>
 
   <footer>
     <span>&copy; 2026 <a href="https://github.com/BlckM00n">BlckM00n</a>. Some rights reserved.</span>
@@ -495,7 +635,6 @@
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
   const trigger = document.getElementById('sidebar-trigger');
-
   trigger.addEventListener('click', () => {
     sidebar.classList.toggle('open');
     overlay.classList.toggle('active');
@@ -505,7 +644,24 @@
     overlay.classList.remove('active');
   });
 
-  // Dark/light mode
+  // Navegación por secciones
+  const navLinks = document.querySelectorAll('#sidebar nav a');
+  const sections = document.querySelectorAll('.section');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const sectionId = link.dataset.section;
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById('section-' + sectionId).classList.add('active');
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Modo oscuro/claro
   const toggle = document.getElementById('mode-toggle');
   const icon = toggle.querySelector('i');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
