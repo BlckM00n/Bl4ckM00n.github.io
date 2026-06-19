@@ -1,12 +1,523 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bl4ckM00n</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1b1b1e">
+<title>Bl4ckM00n</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1b1b1e;
+    --bg-sidebar: #18181b;
+    --bg-card: #1f1f23;
+    --bg-hover: #27272b;
+    --text: #e4e4e7;
+    --text-dim: #a1a1aa;
+    --text-muted: #71717a;
+    --accent: #a855f7;
+    --accent-hover: #c084fc;
+    --border: #27272b;
+    --shadow: 0 2px 8px rgba(0,0,0,0.3);
+    --radius: 12px;
+    --font: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  .light {
+    --bg: #fafafa;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-hover: #f4f4f5;
+    --text: #18181b;
+    --text-dim: #52525b;
+    --text-muted: #a1a1aa;
+    --accent: #7c3aed;
+    --accent-hover: #6d28d9;
+    --border: #e4e4e7;
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+  a { color: var(--accent); text-decoration: none; transition: color .2s; }
+  a:hover { color: var(--accent-hover); }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 280px;
+    min-height: 100vh;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 100;
+    transition: background .3s, transform .3s;
+  }
+  #sidebar .profile {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  #sidebar .avatar {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    margin-bottom: 1rem;
+    background: var(--bg-hover);
+  }
+  #sidebar .site-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  #sidebar .site-subtitle {
+    font-size: .78rem;
+    color: var(--text-dim);
+    margin-top: .5rem;
+    line-height: 1.5;
+  }
+  #sidebar nav { flex: 1; }
+  #sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .6rem .75rem;
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: .9rem;
+    font-weight: 500;
+    transition: all .2s;
+    margin-bottom: 2px;
+  }
+  #sidebar nav a:hover,
+  #sidebar nav a.active {
+    background: var(--bg-hover);
+    color: var(--text);
+  }
+  #sidebar nav a i { width: 1.25rem; text-align: center; }
+  #sidebar .social {
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  #sidebar .social a {
+    width: 36px; height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--text-muted);
+    transition: all .2s;
+    font-size: 1rem;
+  }
+  #sidebar .social a:hover {
+    background: var(--bg-hover);
+    color: var(--accent);
+  }
+  #mode-toggle {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: .4rem;
+    border-radius: 8px;
+    transition: all .2s;
+  }
+  #mode-toggle:hover { background: var(--bg-hover); color: var(--accent); }
+
+  /* MAIN */
+  #main {
+    margin-left: 280px;
+    flex: 1;
+    padding: 2rem 3rem;
+    max-width: 1100px;
+    transition: background .3s;
+  }
+  #topbar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    transition: background .3s;
+  }
+  #topbar .site-title-sm { font-weight: 700; font-size: 1.1rem; }
+  #topbar button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: .4rem;
+    border-radius: 8px;
+  }
+  #topbar button:hover { background: var(--bg-hover); color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 2rem 0 1rem;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    color: var(--text-dim);
+    margin-top: .5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 600px;
+  }
+  .hero .tags {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .hero .tags span {
+    font-family: var(--mono);
+    font-size: .75rem;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    padding: .25rem .75rem;
+    border-radius: 20px;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+
+  /* POST CARDS */
+  #post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: all .25s;
+    box-shadow: var(--shadow);
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(168,85,247,.12);
+  }
+  .card .meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: .8rem;
+    color: var(--text-muted);
+    margin-bottom: .5rem;
+  }
+  .card .meta i { margin-right: 4px; }
+  .card .meta .cats {
+    color: var(--accent);
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+  }
+  .card h2 a { color: var(--text); }
+  .card h2 a:hover { color: var(--accent); }
+  .card p {
+    font-size: .9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card .preview-img {
+    margin: 1rem 0 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .card .preview-img img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* SIDEBAR RIGHT */
+  .layout {
+    display: flex;
+    gap: 2.5rem;
+  }
+  .layout main { flex: 1; min-width: 0; }
+  .layout aside {
+    width: 260px;
+    flex-shrink: 0;
+  }
+  .panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .panel h3 {
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .panel ul { list-style: none; }
+  .panel li {
+    font-size: .88rem;
+    padding: .35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel li:last-child { border-bottom: none; }
+  .panel li a { color: var(--text-dim); display: block; }
+  .panel li a:hover { color: var(--text); }
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+  .tag-cloud a {
+    font-family: var(--mono);
+    font-size: .72rem;
+    padding: .2rem .7rem;
+    border-radius: 20px;
+    background: var(--bg-hover);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    transition: all .2s;
+  }
+  .tag-cloud a:hover {
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 3rem;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .82rem;
+    color: var(--text-muted);
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--accent); }
+
+  /* HAMBURGER OVERLAY */
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 99;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #sidebar-overlay.active { display: block; }
+    #main { margin-left: 0; padding: 1.5rem; }
+    #topbar { display: flex; }
+    .layout aside { display: none; }
+  }
+</style>
 </head>
 <body>
-  <h1>¡Hola, mundo!</h1>
-  <p>Este es mi sitio en GitHub Pages.</p>
+
+<div id="sidebar-overlay"></div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="profile">
+    <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="avatar" class="avatar" id="avatar-img">
+    <div class="site-title">Bl4ckM00n</div>
+    <div class="site-subtitle">Cybersecurity & hacking enthusiast.<br>CTF player · Red/Blue team · Always learning.</div>
+  </div>
+  <nav>
+    <a href="/" class="active"><i class="fas fa-home"></i> HOME</a>
+    <a href="/categories/"><i class="fas fa-stream"></i> CATEGORIES</a>
+    <a href="/tags/"><i class="fas fa-tags"></i> TAGS</a>
+    <a href="/archives/"><i class="fas fa-archive"></i> ARCHIVES</a>
+    <a href="/about/"><i class="fas fa-info-circle"></i> ABOUT</a>
+  </nav>
+  <div class="social">
+    <button id="mode-toggle" aria-label="Modo oscuro/claro"><i class="fas fa-moon"></i></button>
+    <span class="icon-border" style="width:1px;background:var(--border);margin:0 4px;"></span>
+    <a href="https://github.com/Bl4ckM00n" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://twitter.com/Bl4ckM00n" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="mailto:bl4ckm00n@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    <a href="/feed.xml" aria-label="RSS"><i class="fas fa-rss"></i></a>
+  </div>
+</aside>
+
+<!-- TOPBAR (mobile) -->
+<div id="topbar">
+  <button id="sidebar-trigger" aria-label="Menú"><i class="fas fa-bars"></i></button>
+  <span class="site-title-sm">Bl4ckM00n</span>
+  <button id="search-trigger-mobile" aria-label="Buscar"><i class="fas fa-search"></i></button>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="hero">
+    <h1>Bl4ckM00n</h1>
+    <p>Blog personal sobre ciberseguridad, CTFs, malware analysis, y todo lo relacionado con hacking ético. Writeups, notas, y recursos.</p>
+    <div class="tags">
+      <span>#RedTeam</span>
+      <span>#BlueTeam</span>
+      <span>#Malware</span>
+      <span>#CTF</span>
+      <span>#Linux</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main>
+      <div id="post-list">
+
+        <article class="card">
+          <div class="meta">
+            <span><i class="far fa-calendar"></i> Jun 15, 2026</span>
+            <span class="cats"><i class="far fa-folder-open"></i> RedTeam, HTB</span>
+          </div>
+          <h2><a href="#">Interpreter — Hack The Box Walkthrough</a></h2>
+          <p>Enumeración, SSTI, CVE-2023 exploitation y escalada de privilegios en máquina Linux. Writeup completo paso a paso...</p>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span><i class="far fa-calendar"></i> Jun 10, 2026</span>
+            <span class="cats"><i class="far fa-folder-open"></i> BlueTeam, Malware</span>
+          </div>
+          <h2><a href="#">PureLog Stealer — Análisis de Malware</a></h2>
+          <p>Análisis forense de un stealer en .NET. Ingeniería inversa con dnSpy, extracción de C2 y decodificación de payloads...</p>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span><i class="far fa-calendar"></i> Jun 5, 2026</span>
+            <span class="cats"><i class="far fa-folder-open"></i> ExploitDev, C2</span>
+          </div>
+          <h2><a href="#">Sliver C2 — Operador Básico</a></h2>
+          <p>Instalación, configuración de operadores, generación de implants y comunicación con servidor C2...</p>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span><i class="far fa-calendar"></i> May 28, 2026</span>
+            <span class="cats"><i class="far fa-folder-open"></i> MalDev, C++</span>
+          </div>
+          <h2><a href="#">Dinamic Librarys — Carga de DLLs en Windows</a></h2>
+          <p>Métodos de carga de DLLs: ruta específica, memoria, y técnicas de evasión para malware development...</p>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span><i class="far fa-calendar"></i> May 20, 2026</span>
+            <span class="cats"><i class="far fa-folder-open"></i> Forensics, Reversing</span>
+          </div>
+          <h2><a href="#">Análisis de Memoria en Windows</a></h2>
+          <p>Volatility, extracción de procesos, detectando rootkits y análisis de volcados de memoria RAM...</p>
+        </article>
+
+      </div>
+    </main>
+
+    <aside>
+      <div class="panel">
+        <h3>RECENTLY UPDATED</h3>
+        <ul>
+          <li><a href="#">Dinamic Librarys</a></li>
+          <li><a href="#">Windows Tipos de Datos</a></li>
+          <li><a href="#">Análisis de Memoria</a></li>
+          <li><a href="#">PureLog Stealer</a></li>
+          <li><a href="#">Sliver C2 Basics</a></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>TRENDING TAGS</h3>
+        <div class="tag-cloud">
+          <a href="#">RedTeam</a>
+          <a href="#">Maldev</a>
+          <a href="#">C++</a>
+          <a href="#">C-Language</a>
+          <a href="#">Reversing</a>
+          <a href="#">WebAttacks</a>
+          <a href="#">BlueTeam</a>
+          <a href="#">CSharp</a>
+          <a href="#">CTF</a>
+          <a href="#">Linux</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <span>&copy; 2026 <a href="https://github.com/Bl4ckM00n">Bl4ckM00n</a>. Some rights reserved.</span>
+    <span>Powered by <a href="https://pages.github.com">GitHub Pages</a></span>
+  </footer>
+</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const trigger = document.getElementById('sidebar-trigger');
+
+  trigger.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  });
+  overlay.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+  });
+
+  // Dark/light mode
+  const toggle = document.getElementById('mode-toggle');
+  const icon = toggle.querySelector('i');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let dark = localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : prefersDark;
+  if (!dark) document.body.classList.add('light');
+  icon.className = dark ? 'fas fa-moon' : 'fas fa-sun';
+  toggle.addEventListener('click', () => {
+    dark = !dark;
+    document.body.classList.toggle('light');
+    icon.className = dark ? 'fas fa-moon' : 'fas fa-sun';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+</script>
 </body>
 </html>
