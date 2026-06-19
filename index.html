@@ -10,15 +10,18 @@
 <style>
   :root {
     --bg: #1b1b1e;
+    --bg-gradient: linear-gradient(180deg, #1a0a2e 0%, #1b1b1e 40%, #0d0d0f 100%);
     --bg-sidebar: #18181b;
-    --bg-card: #1f1f23;
+    --bg-sidebar-glass: rgba(24,24,27,0.85);
+    --bg-card: rgba(31,31,35,0.75);
+    --bg-card-solid: #1f1f23;
     --bg-hover: #27272b;
     --text: #e4e4e7;
     --text-dim: #a1a1aa;
     --text-muted: #71717a;
     --accent: #a855f7;
     --accent-hover: #c084fc;
-    --border: #27272b;
+    --border: rgba(39,39,43,0.6);
     --shadow: 0 2px 8px rgba(0,0,0,0.3);
     --radius: 12px;
     --font: 'Inter', -apple-system, sans-serif;
@@ -26,15 +29,18 @@
   }
   .light {
     --bg: #fafafa;
+    --bg-gradient: linear-gradient(180deg, #f5f0ff 0%, #fafafa 40%, #f0f0f2 100%);
     --bg-sidebar: #ffffff;
-    --bg-card: #ffffff;
+    --bg-sidebar-glass: rgba(255,255,255,0.9);
+    --bg-card: rgba(255,255,255,0.8);
+    --bg-card-solid: #ffffff;
     --bg-hover: #f4f4f5;
     --text: #18181b;
     --text-dim: #52525b;
     --text-muted: #a1a1aa;
     --accent: #7c3aed;
     --accent-hover: #6d28d9;
-    --border: #e4e4e7;
+    --border: rgba(228,228,231,0.8);
     --shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,6 +48,8 @@
   body {
     font-family: var(--font);
     background: var(--bg);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
     color: var(--text);
     display: flex;
     min-height: 100vh;
@@ -54,7 +62,9 @@
   #sidebar {
     width: 280px;
     min-height: 100vh;
-    background: var(--bg-sidebar);
+    background: var(--bg-sidebar-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-right: 1px solid var(--border);
     padding: 2rem 1.5rem;
     display: flex;
